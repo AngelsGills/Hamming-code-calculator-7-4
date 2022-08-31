@@ -1,0 +1,160 @@
+#include <LiquidCrystal.h>
+int led = 10;
+int switchpin1 = 9;
+int switchpin2 = 8;
+int switchpin3 = 7;
+int switchpin4 = 6;
+int switchpin5 = 13;
+int a;
+int b;
+int c;
+int d;
+int e;
+int f;
+int g;
+int switchstate;
+const int rs = 12, en = 11, d4 =5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+void setup()
+{
+ Serial.begin(9600);
+ lcd.begin(16,2);
+ pinMode(led, OUTPUT);
+ pinMode(switchpin1, INPUT);
+ pinMode(switchpin2, INPUT);
+ pinMode(switchpin3, INPUT);
+ pinMode(switchpin4, INPUT);
+ pinMode(switchpin5, INPUT);
+}
+void loop()
+{
+ lcd.clear();
+ lcd.setCursor(0,0);
+ lcd.print("Choose 4 bits 4");
+ lcd.setCursor(0,1);
+ lcd.print("Even hamming");
+ delay(250);
+    if (digitalRead(switchpin1)) 
+    {
+    c=1;
+  	} 
+    else 
+    {
+    c=0;
+  	}
+  		if (digitalRead(switchpin2))
+        {
+        e=1;
+          delay(250);
+        }
+        else
+        {
+        e=0;  
+          delay(250);
+        }
+        	if (digitalRead(switchpin2))
+        	{
+        	f=1;
+              delay(250);
+            }
+        	else
+        	{
+        	f=0;  
+              delay(250);
+        	}
+            	if (digitalRead(switchpin2))
+        		{
+        		g=1;
+                  delay(250);
+                }
+        		else
+        		{
+        		g=0;  
+                  delay(250);
+        		}
+  
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Bits choosen:");
+  lcd.setCursor(0,1);
+  lcd.print(c);
+  delay(250);
+  lcd.setCursor(1,1);
+  lcd.print(e);
+  delay(250);
+  lcd.setCursor(2,1);
+  lcd.print(f);
+  delay(250);
+  lcd.setCursor(3,1);
+  lcd.print(g);
+  delay(1000);
+  if (digitalRead(switchpin5))
+  {
+    digitalWrite(led, HIGH);	// turn the LED on (HIGH is the voltage level)
+  	delay(250); 
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Even Hamming:");
+    delay(1000);
+    if ((c+e+g)%2 ==0)// parity bit 1 checks b3,b5,b7
+    {
+    a=0; 
+    }
+    else
+    {
+    a=1; 
+    }
+    if ((c+f+g)%2==0) // parity bit 2 checks b3,b6,b7
+    {
+     b=0; 
+    }
+    else
+    {
+     b=1; 
+    }
+    if ((e+f+g)%2==0) // parity bit 3 checks b5,b6,b7
+    {
+     d=0; 
+    }
+    else
+    {
+     d=1; 
+    }
+    lcd.setCursor(0,1);
+    lcd.print(a);
+    lcd.setCursor(1,1);
+    lcd.print(b);
+    lcd.setCursor(2,1);
+    lcd.print(c);
+    lcd.setCursor(3,1);
+    lcd.print(d);
+    lcd.setCursor(4,1);
+    lcd.print(e);
+    lcd.setCursor(5,1);
+    lcd.print(f);
+    lcd.setCursor(6,1);
+    lcd.print(g);
+    delay(1000);
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Parity bits");
+    lcd.setCursor(0,1);
+    lcd.print("are:");
+    lcd.setCursor(5,1);
+    lcd.print(a);
+    lcd.setCursor(6,1);
+    lcd.print(b);
+    lcd.setCursor(7,1);
+    lcd.print(d);
+    delay(1000);
+  }
+  else
+  {
+    digitalWrite(led, LOW);		// turn the LED off by making the voltage LOW    
+  	delay(250);
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Reselect bits");
+    delay(1000);
+  }
+}
